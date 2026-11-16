@@ -44,6 +44,7 @@ const DEFAULT_SETTINGS = {
 	provider: PROVIDER_AUTO,
 	baseUrl: 'http://127.0.0.1:11434',
 	apiKey: '',
+	customHeaders: '',
 	model: '',
 	temperature: 0.1,
 	timeoutMs: 60000,
@@ -128,6 +129,26 @@ function withTimeout(promise, timeoutMs, message) {
 	});
 }
 
+/**
+ * Parse "Header-Name: value" lines into an object. Used for gateways that need
+ * extra headers (session ids, routing hints, ...).
+ */
+function parseHeaderLines(raw) {
+	const headers = {};
+	String(raw == null ? '' : raw)
+		.split('\n')
+		.forEach((line) => {
+			const trimmed = line.trim();
+			if (!trimmed || trimmed.startsWith('#')) return;
+			const index = trimmed.indexOf(':');
+			if (index <= 0) return;
+			const name = trimmed.slice(0, index).trim();
+			const value = trimmed.slice(index + 1).trim();
+			if (name) headers[name] = value;
+		});
+	return headers;
+}
+
 /* -------------------------------------------------------------------------- */
 /* HTTP / model service layer                                                 */
 /* -------------------------------------------------------------------------- */
@@ -178,6 +199,7 @@ function buildEndpoint(settings) {
 	const headers = { 'Content-Type': 'application/json' };
 	const apiKey = String(settings.apiKey || '').trim();
 	if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
+	Object.assign(headers, parseHeaderLines(settings.customHeaders));
 
 	return { kind, baseUrl: base, chatUrl, modelsUrl, headers };
 }
@@ -1320,6 +1342,21 @@ class AILocalTranslatorSettingTab extends PluginSettingTab {
 						await plugin.updateSettings({ apiKey: value.trim() });
 					});
 				text.inputEl.style.width = '320px';
+			});
+
+		new Setting(containerEl)
+			.setName('自定义请求头')
+			.setDesc(
+				'每行一个「名称: 值」。有的网关要求额外的路由头，例如 x-opencode-session: ses_dsh_desktop。'
+			)
+			.addTextArea((area) => {
+				area.setPlaceholder('x-opencode-session: ses_dsh_desktop')
+					.setValue(settings.customHeaders || '')
+					.onChange(async (value) => {
+						await plugin.updateSettings({ customHeaders: value });
+					});
+				area.inputEl.rows = 3;
+				area.inputEl.style.width = '100%';
 			});
 
 		new Setting(containerEl)

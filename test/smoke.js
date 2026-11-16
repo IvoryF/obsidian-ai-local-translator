@@ -891,6 +891,19 @@ async function createPlugin() {
 		}
 	});
 
+	await test('custom headers and API key are merged into the request', async () => {
+		const plugin = await createPlugin();
+		plugin.settings.apiKey = 'secret-key';
+		plugin.settings.customHeaders = 'x-opencode-session: ses_test\n# a comment line\nX-Route: go';
+		respondWith({ status: 200, json: { choices: [{ message: { content: 'ok' } }] }, text: '' });
+		await plugin.translate('hi');
+
+		const headers = httpCalls[0].headers;
+		assert.equal(headers.Authorization, 'Bearer secret-key');
+		assert.equal(headers['x-opencode-session'], 'ses_test');
+		assert.equal(headers['X-Route'], 'go');
+	});
+
 	/* ---------------------------------------------------------------- report */
 
 	process.stdout.write(`\n${passed} passed, ${failures.length} failed\n`);
