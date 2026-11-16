@@ -1,0 +1,156 @@
+/* AI Local Translator — UI styles */
+
+/* ---------------------------------------------------------------- trigger */
+
+.alt-trigger {
+	position: fixed;
+	z-index: 1000;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 6px;
+	background-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+	box-shadow: var(--shadow-s);
+	cursor: pointer;
+	opacity: 0.94;
+	transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.alt-trigger:hover {
+	opacity: 1;
+	transform: scale(1.06);
+}
+
+.alt-trigger svg {
+	width: 15px;
+	height: 15px;
+	stroke-width: 2;
+}
+
+/* ------------------------------------------------------------------ popup */
+
+.alt-popup {
+	position: fixed;
+	z-index: 1001;
+	display: flex;
+	flex-direction: column;
+	width: min(420px, calc(100vw - 24px));
+	max-height: min(70vh, 560px);
+	background-color: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 10px;
+	box-shadow: var(--shadow-l);
+	overflow: hidden;
+	font-size: var(--font-ui-small);
+	color: var(--text-normal);
+}
+
+.alt-popup-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 8px 6px 12px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	background-color: var(--background-secondary);
+	cursor: move;
+	user-select: none;
+}
+
+.alt-popup-title {
+	font-weight: 600;
+	font-size: var(--font-ui-small);
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+}
+
+.alt-popup-badge {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	background-color: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 999px;
+	padding: 1px 8px;
+	max-width: 190px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.alt-popup-spacer {
+	flex: 1 1 auto;
+}
+
+.alt-popup-actions {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.alt-icon-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 5px;
+	color: var(--text-muted);
+	cursor: pointer;
+}
+
+.alt-icon-btn:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.alt-icon-btn svg {
+	width: 14px;
+	height: 14px;
+}
+
+.alt-popup-source {
+	padding: 8px 12px;
+	max-height: 6.5em;
+	overflow: auto;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.5;
+	white-space: pre-wrap;
+	word-break: break-word;
+	border-bottom: 1px dashed var(--background-modifier-border);
+	user-select: text;
+}
+
+.alt-popup-result {
+	padding: 10px 12px 12px;
+	overflow: auto;
+	line-height: 1.65;
+	white-space: pre-wrap;
+	word-break: break-word;
+	user-select: text;
+	min-height: 2.4em;
+}
+
+.alt-popup-result.is-loading {
+	color: var(--text-muted);
+	font-style: italic;
+}
+
+.alt-popup-result.is-error {
+	color: var(--text-error);
+	font-size: var(--font-ui-smaller);
+}
+
+/* Scrollbars inside the popup stay unobtrusive. */
+.alt-popup-source::-webkit-scrollbar,
+.alt-popup-result::-webkit-scrollbar {
+	width: 6px;
+}
+
+.alt-popup-source::-webkit-scrollbar-thumb,
+.alt-popup-result::-webkit-scrollbar-thumb {
+	background-color: var(--background-modifier-border);
+	border-radius: 3px;
+}

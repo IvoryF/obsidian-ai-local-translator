@@ -1,0 +1,11 @@
+{
+	"name": "ai-local-translator",
+	"version": "0.1.0",
+	"description": "Obsidian plugin: translate selected text in Markdown notes and PDFs with a locally running model.",
+	"main": "main.js",
+	"private": true,
+	"license": "MIT",
+	"scripts": {
+		"test": "node test/smoke.js"
+	}
+}
