@@ -117,19 +117,33 @@ A：不会。插件只请求你在设置里填的那个地址，没有任何遥�
 
 ## 开发
 
-这个插件**没有构建步骤**：`main.js` 就是可直接加载的 CommonJS 源码，改完在 Obsidian 里「刷新插件」即可生效。
+这个插件**没有构建步骤**：`main.js` 就是可直接加载的 CommonJS 源码。
+
+- 仓库（开发与发布）：本目录
+- Vault 里的安装副本：`<Vault>/.obsidian/plugins/ai-local-translator/`
+
+改完代码后同步进 vault：
+
+```bash
+node tools/install-to-vault.js                       # 默认装到 D:\projects\O_Vault
+node tools/install-to-vault.js "D:\OtherVault"       # 指定别的 vault
+```
+
+然后在 Obsidian 里 `Ctrl+R` 重载（或在设置里关开一次插件）。
 
 ```
-ai-local-translator/
+obsidian-ai-local-translator/
 ├─ manifest.json
 ├─ versions.json
 ├─ main.js                  # 插件本体（无需打包）
 ├─ styles.css
 ├─ test/smoke.js            # 无头冒烟测试（stub 掉 obsidian + DOM）
+├─ tools/mock-server.js     # 假模型服务，没装 LLM 时也能验证 UI
+├─ tools/install-to-vault.js
 └─ PUBLISH.md               # 上架官方市场的完整清单
 ```
 
-跑测试：
+跑测试（20 个用例：接口拼装、SSE / NDJSON 解析、选区识别、生词本写入、设置页渲染）：
 
 ```bash
 node test/smoke.js

@@ -15,12 +15,10 @@
 
 ## 1. 建仓库并推送
 
+仓库就在 `D:\projects\obsidian-ai-local-translator`（已经 `git init` 并有一次提交）：
+
 ```bash
-cd .obsidian/plugins/ai-local-translator
-git init
-git add .
-git commit -m "feat: initial release"
-git branch -M main
+cd D:\projects\obsidian-ai-local-translator
 git remote add origin https://github.com/<你>/obsidian-ai-local-translator.git
 git push -u origin main
 ```
