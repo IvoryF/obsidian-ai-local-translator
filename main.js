@@ -453,7 +453,9 @@ class AILocalTranslatorPlugin extends Plugin {
 			},
 		});
 
-		this.registerDomEvent(document, 'mouseup', (evt) => this.onPointerUp(evt));
+		// Capture phase: Obsidian's PDF viewer may stop propagation of its own
+		// mouseup, which would hide the selection from a bubbling listener.
+		this.registerDomEvent(document, 'mouseup', (evt) => this.onPointerUp(evt), true);
 		this.registerDomEvent(document, 'pointerdown', (evt) => this.onPointerDown(evt), true);
 		this.registerDomEvent(document, 'keydown', (evt) => {
 			if (evt.key === 'Escape') this.closeUI();
