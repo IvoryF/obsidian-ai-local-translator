@@ -151,7 +151,7 @@ obsidian-ai-local-translator/
 node test/smoke.js
 ```
 
-发布前要改的地方：`manifest.json` 里的 `author` / `authorUrl` 填你自己的 GitHub 信息。上架步骤见 [PUBLISH.md](PUBLISH.md)。
+仓库：https://github.com/IvoryF/obsidian-ai-local-translator，上架步骤见 [PUBLISH.md](PUBLISH.md)。
 
 ## English
 

@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"minAppVersion": "1.5.0",
 	"description": "Select text in Markdown notes or PDFs and translate it with a local LLM (Ollama, LM Studio or any OpenAI-compatible endpoint). Save words to a vocabulary note in one click.",
-	"author": "TODO-your-github-name",
-	"authorUrl": "https://github.com/TODO-your-github-name",
+	"author": "IvoryF",
+	"authorUrl": "https://github.com/IvoryF",
 	"isDesktopOnly": false
 }

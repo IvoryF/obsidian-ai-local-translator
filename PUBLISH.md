@@ -2,24 +2,23 @@
 
 > 这一步需要你本人的 GitHub 账号：仓库归你、Release 由你打、PR 由你提交。下面是完整清单，照着做即可。
 
-## 0. 先补两个字段
+## 0. 元信息（已完成）
 
-`manifest.json` 里现在是占位符，提交前必须换成你自己的信息：
+`manifest.json` 已填好：
 
 ```json
-"author": "你的 GitHub 用户名",
-"authorUrl": "https://github.com/你的用户名"
+"author": "IvoryF",
+"authorUrl": "https://github.com/IvoryF"
 ```
 
 `id`（`ai-local-translator`）一旦上架**不能改**，它会成为插件的永久标识。
 
 ## 1. 建仓库并推送
 
-仓库就在 `D:\projects\obsidian-ai-local-translator`（已经 `git init` 并有一次提交）：
+仓库：https://github.com/IvoryF/obsidian-ai-local-translator
 
 ```bash
 cd D:\projects\obsidian-ai-local-translator
-git remote add origin https://github.com/<你>/obsidian-ai-local-translator.git
 git push -u origin main
 ```
 
