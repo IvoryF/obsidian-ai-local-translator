@@ -673,11 +673,7 @@ class AILocalTranslatorPlugin extends Plugin {
 
 	getActiveView() {
 		const workspace = this.app.workspace;
-		let leaf = null;
-		if (typeof workspace.getMostRecentLeaf === 'function') {
-			leaf = workspace.getMostRecentLeaf();
-		}
-		if (!leaf) leaf = workspace.activeLeaf;
+		const leaf = typeof workspace.getMostRecentLeaf === 'function' ? workspace.getMostRecentLeaf() : null;
 		return leaf && leaf.view ? leaf.view : null;
 	}
 
@@ -992,8 +988,12 @@ class AILocalTranslatorPlugin extends Plugin {
 					message: `生词本里已经有「${truncate(collapseWhitespace(payload.term), 20)}」了`,
 				};
 			}
-			const next = `${content.replace(/\s+$/, '')}\n\n${entry}\n`;
-			await this.app.vault.modify(existing, next);
+			// `process` is atomic, so a concurrently open vocabulary note can't be
+			// clobbered by another plugin writing at the same time.
+			await this.app.vault.process(
+				existing,
+				(current) => `${String(current || '').replace(/\s+$/, '')}\n\n${entry}\n`
+			);
 			return { ok: true };
 		}
 
@@ -1247,7 +1247,6 @@ class AILocalTranslatorSettingTab extends PluginSettingTab {
 		const settings = plugin.settings;
 		containerEl.empty();
 
-		containerEl.createEl('h2', { text: 'AI Local Translator' });
 		containerEl.createEl('p', {
 			cls: 'setting-item-description',
 			text:

@@ -1,7 +1,7 @@
 {
 	"id": "ai-local-translator",
 	"name": "AI Local Translator",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"minAppVersion": "1.5.0",
 	"description": "Select text in Markdown notes or PDFs and translate it with a local LLM (Ollama, LM Studio or any OpenAI-compatible endpoint). Save words to a vocabulary note in one click.",
 	"author": "IvoryF",

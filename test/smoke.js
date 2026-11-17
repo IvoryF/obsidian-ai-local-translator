@@ -373,6 +373,10 @@ const vault = {
 	async modify(file, content) {
 		file.content = content;
 	},
+	async process(file, fn) {
+		file.content = fn(file.content);
+		return file.content;
+	},
 	async create(filePath, content) {
 		const file = new TFile(filePath);
 		file.content = content;
